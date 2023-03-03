@@ -1,24 +1,22 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import java.util.concurrent.TimeUnit;
 
 
 
-public class SignUpTest {
+
+public class SignUpTest extends BaseTest{
+
 
     @Test
-    public void sigbUp() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("http://www.kurs-selenium.pl/demo/");
-
+    public void signUpTest() {
         driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream().filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
         // stream lepszym rozwiazaniem jezeli do wyboru 2 obiekty i tylko jeden widoczny
         //driver.findElements(By.xpath("//a[text()= '  Sign Up' ]")).stream().filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
@@ -35,13 +33,9 @@ public class SignUpTest {
         driver.findElement(By.name("confirmpassword")).sendKeys("QWEasd!23");
         driver.findElement(By.xpath("//button[@class ='signupbtn btn_full btn btn-action btn-block btn-lg']")).click();
         WebElement heading = driver.findElement(By.xpath("//h3[@class = 'RTL']"));
+        System.out.println(heading.getText());
 
         Assert.assertTrue(heading.getText().contains(lastName));
         Assert.assertEquals(heading.getText(), "Hi, Marco Van Basten");
-
-
-
-
-
     }
 }

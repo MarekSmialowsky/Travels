@@ -1,24 +1,20 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import java.util.concurrent.TimeUnit;
 
-public class HomeWork {
+public class HomeWorkTest extends BaseTest{
 
     @Test
-    public void sigbUpWithoutParams() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("http://www.kurs-selenium.pl/demo/");
+    public void signUpWithoutParamsTest() {
 
         driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream().filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
         // stream lepszym rozwiazaniem jezeli do wyboru 2 obiekty i tylko jeden widoczny
@@ -33,25 +29,15 @@ public class HomeWork {
 
         System.out.println(validationAlerts.size());
         validationAlerts.forEach(System.out::println);
-
         Assert.assertEquals(validationAlerts.get(0),"The Email field is required.");
         Assert.assertEquals(validationAlerts.get(1),"The Password field is required.");
         Assert.assertEquals(validationAlerts.get(2),"The Password field is required.");
         Assert.assertEquals(validationAlerts.get(3),"The First name field is required.");
         Assert.assertEquals(validationAlerts.get(4),"The Last Name field is required.");
-
-
-
     }
 
     @Test
-    public void sigbUpWithInvalidEmail() {
-
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("http://www.kurs-selenium.pl/demo/");
+    public void signUpWithInvalidEmailTest() {
 
         driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream().filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
         // stream lepszym rozwiazaniem jezeli do wyboru 2 obiekty i tylko jeden widoczny
@@ -74,8 +60,6 @@ public class HomeWork {
 
         Assert.assertTrue(alertText.isDisplayed());
         Assert.assertEquals(alertText.getText(), "The Email field must contain a valid email address.");
-
-
     }
 
 }
