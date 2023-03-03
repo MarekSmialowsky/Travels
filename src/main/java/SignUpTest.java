@@ -5,10 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+
 
 
 public class SignUpTest {
