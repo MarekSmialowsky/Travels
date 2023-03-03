@@ -17,7 +17,7 @@ public class HotelSearch {
     public void serachHotel() {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("http://www.kurs-selenium.pl/demo/");
         driver.findElement(By.xpath("//span[text() = 'Search by Hotel or City Name']")).click();
